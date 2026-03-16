@@ -5,47 +5,96 @@
 <title>싱고 - 노래하고 성장하는 커뮤니티</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
+*{
+    box-sizing:border-box;
+}
+
 body{
     margin:0;
-    font-family: 'Pretendard', sans-serif;
-    background:#fdfbf7;
-    color:#333;
+    font-family: 'Outfit', sans-serif;
+    background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    color:white;
+    min-height:100vh;
 }
 
 header{
     text-align:center;
-    padding:80px 20px;
-    background:linear-gradient(135deg,#ffeaa7,#81ecec);
+    padding:100px 20px;
+    background:linear-gradient(135deg,#ff00cc,#333399);
+    position:relative;
+    overflow:hidden;
+}
+
+header::before{
+    content:'';
+    position:absolute;
+    top:-50%;
+    left:-50%;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 60%);
+    animation:shine 3s infinite linear;
+}
+
+@keyframes shine{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
 }
 
 header h1{
-    font-size:48px;
+    font-size:72px;
     margin-bottom:10px;
+    font-weight:800;
+    text-shadow:0 0 30px rgba(255,0,204,0.5);
 }
 
 header p{
-    font-size:20px;
-    opacity:0.9;
+    font-size:22px;
+    opacity:0.95;
+    font-weight:400;
 }
 
 .cta{
-    margin-top:30px;
+    margin-top:35px;
 }
 
 .cta button{
-    padding:15px 30px;
+    padding:18px 45px;
     border:none;
-    border-radius:30px;
-    font-size:16px;
+    border-radius:50px;
+    font-size:18px;
     cursor:pointer;
-    background:#f97583;
+    background:linear-gradient(90deg,#ff00cc,#ff6b6b);
     color:white;
-    font-weight:bold;
+    font-weight:600;
+    transition:all 0.3s ease;
+    box-shadow:0 5px 25px rgba(255,0,204,0.4);
+}
+
+.cta button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 35px rgba(255,0,204,0.6);
 }
 
 .section{
-    padding:70px 20px;
+    padding:80px 20px;
     text-align:center;
+}
+
+.section h2{
+    font-size:36px;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.section p{
+    font-size:18px;
+    opacity:0.9;
+    max-width:600px;
+    margin:10px auto;
+    line-height:1.6;
 }
 
 .features{
@@ -53,26 +102,47 @@ header p{
     justify-content:center;
     gap:30px;
     flex-wrap:wrap;
-    margin-top:40px;
+    margin-top:50px;
 }
 
 .card{
-    background:white;
-    padding:30px;
-    width:260px;
-    border-radius:16px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    padding:35px;
+    width:280px;
+    border-radius:24px;
+    border:1px solid rgba(255,255,255,0.15);
+    transition:all 0.3s ease;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    background:rgba(255,255,255,0.15);
+    border-color:rgba(255,0,204,0.5);
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
 }
 
 .card h3{
-    margin-bottom:10px;
+    font-size:22px;
+    margin-bottom:12px;
+    color:#ff6b6b;
+}
+
+.card p{
+    font-size:15px;
+    line-height:1.5;
 }
 
 footer{
     text-align:center;
-    padding:40px;
-    background:#b8e994;
-    color:#333;
+    padding:30px;
+    background:linear-gradient(90deg,#1a1a2e,#16213e);
+    border-top:1px solid rgba(255,255,255,0.1);
+}
+
+footer p{
+    opacity:0.6;
+    font-size:14px;
 }
 </style>
 </head>
@@ -80,7 +150,7 @@ footer{
 <body>
 
 <header>
-<h1>🌸 SingGo</h1>
+<h1>🎤 SingGo</h1>
 <p>노래하고, 공유하고, 함께 성장하는 노래 커뮤니티</p>
 
 <div class="cta">
@@ -102,22 +172,22 @@ footer{
 <div class="features">
 
 <div class="card">
-<h3>🌸 노래 실력 분석</h3>
+<h3>🎵 노래 실력 분석</h3>
 <p>음정, 박자, 안정성 등을 AI가 분석하여 상세 리포트를 제공합니다.</p>
 </div>
 
 <div class="card">
-<h3>🌱 성장 데이터</h3>
+<h3>📈 성장 데이터</h3>
 <p>노래 점수와 분석 데이터를 통해 실력 변화를 확인할 수 있습니다.</p>
 </div>
 
 <div class="card">
-<h3>🌺 노래 커뮤니티</h3>
+<h3>🎭 노래 커뮤니티</h3>
 <p>다른 사용자와 노래를 공유하고 피드백을 받을 수 있습니다.</p>
 </div>
 
 <div class="card">
-<h3>🌻 랭킹 & 리그</h3>
+<h3>🏆 랭킹 & 리그</h3>
 <p>점수 기반 랭킹 시스템으로 노래 경쟁의 재미를 느껴보세요.</p>
 </div>
 
