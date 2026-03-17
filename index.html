@@ -157,6 +157,8 @@
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
   .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
 
+  .nav-alarm-btn { display: none; padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
@@ -446,9 +448,11 @@
 
   .solution-inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
+    grid-template-columns: 1fr;
+    gap: 2rem;
     align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
   }
 
   .solution-visual {
@@ -745,6 +749,11 @@
     position: relative;
     display: flex;
     justify-content: center;
+    width: 100%;
+  }
+
+  .report-inner {
+    grid-template-columns: 1fr 1.2fr;
   }
 
   .ai-phone {
@@ -1059,17 +1068,29 @@
   .mobile-menu {
     display: none;
     position: fixed;
-    top: 70px; left: 0; right: 0;
-    background: rgba(8,6,15,0.95);
-    backdrop-filter: blur(20px);
+    top: 56px; left: 0; right: 0;
+    background: rgba(8,6,15,0.98);
+    backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
-    padding: 1.5rem 5%;
+    padding: 1.2rem 5% 1.5rem;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0;
     z-index: 99;
   }
   .mobile-menu.open { display: flex; }
-  .mobile-menu a { color: var(--text2); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+  .mobile-menu a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--accent); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
@@ -1082,18 +1103,94 @@
     .flow-step::after { display: none; }
     .nav-links { display: none; }
     .hamburger { display: flex; }
+    .nav-alarm-btn { display: inline-flex; }
   }
 
   @media (max-width: 600px) {
-    nav { padding: 0 4%; }
-    section { padding: 70px 4%; }
-    .hero-title { font-size: 2.4rem; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-inner { grid-template-columns: 1fr; }
-    .flow-steps { flex-direction: column; align-items: center; }
+    /* ── BASE ── */
+    * { -webkit-tap-highlight-color: transparent; }
+    nav { padding: 0 5%; height: 56px; }
+    section { padding: 60px 5%; }
+    .container { padding: 0; }
+
+    /* ── HERO ── */
+    #hero { padding: 90px 5% 60px; min-height: auto; }
+    .hero-title { font-size: 2.2rem; letter-spacing: -0.03em; }
+    .hero-sub { font-size: 0.95rem; line-height: 1.8; max-width: 100%; }
+    .hero-cta { flex-direction: column; align-items: center; gap: 0.75rem; margin-bottom: 2.5rem; }
+    .hero-cta .btn-lg { width: 100%; max-width: 320px; justify-content: center; font-size: 1rem; padding: 0.9rem 1.5rem; }
+    .hero-visual { max-width: 280px; }
     .fc-rank, .fc-ai, .fc-duet { display: none; }
     .float-card { display: none; }
-    .problem-grid { grid-template-columns: 1fr; }
+
+    /* ── SECTION COMMONS ── */
+    .section-title { font-size: 1.8rem; }
+    .section-desc { font-size: 0.95rem; max-width: 100%; }
+
+    /* ── PROBLEM ── */
+    .problem-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .problem-card { padding: 1.3rem; }
+    .problem-emoji { font-size: 2rem; margin-bottom: 0.7rem; }
+    .problem-card h3 { font-size: 1rem; }
+    .problem-card p { font-size: 0.88rem; }
+
+    /* ── SOLUTION ── */
+    .solution-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .sol-stats-wrap { grid-template-columns: repeat(2, 1fr); max-width: 100%; gap: 0.75rem; }
+    .sol-stat-card { padding: 1rem 0.8rem; }
+    .sol-stat-num { font-size: 1.2rem; }
+    .sol-stat-label { font-size: 0.68rem; }
+
+    /* ── FEATURES ── */
+    .features-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .feature-card { padding: 1.4rem; }
+    .feature-icon { width: 44px; height: 44px; font-size: 1.1rem; border-radius: 12px; margin-bottom: 1rem; }
+
+    /* ── FLOW ── */
+    .flow-steps { flex-direction: column; align-items: stretch; gap: 1rem; }
+    .flow-step { min-width: auto; width: 100%; flex-direction: row; align-items: flex-start; gap: 1rem; padding: 1.2rem; text-align: left; }
+    .flow-step::after { display: none; }
+    .flow-num { width: 32px; height: 32px; min-width: 32px; font-size: 0.9rem; margin-bottom: 0; }
+    .flow-step-icon { font-size: 1.2rem; margin-bottom: 0; }
+    .flow-step h3 { font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .flow-step p { font-size: 0.83rem; }
+
+    /* ── REPORT & COMMUNITY ── */
+    .community-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .ai-phone { width: 100%; max-width: 300px; }
+    .ai-phone-screen { padding: 0.9rem 0.8rem; }
+
+    /* ── COMM ITEMS ── */
+    .comm-item { gap: 0.9rem; }
+    .comm-icon-wrap { width: 38px; height: 38px; min-width: 38px; font-size: 0.9rem; }
+    .comm-item h4 { font-size: 0.95rem; }
+    .comm-item p { font-size: 0.84rem; }
+
+    /* ── CTA ── */
+    #cta { padding: 70px 5%; }
+    .cta-title { font-size: 1.9rem; }
+    .cta-desc { font-size: 0.95rem; }
+    #cta .btn-lg { width: 100%; max-width: 320px; justify-content: center; }
+    #cta .reveal.delay-2 { gap: 0.6rem !important; flex-direction: column; align-items: center; }
+    #cta .reveal.delay-2 > div { width: 100%; max-width: 280px; justify-content: flex-start; }
+
+    /* ── FOOTER ── */
+    .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-desc { max-width: 100%; }
+    .footer-social { justify-content: flex-start; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; font-size: 0.78rem; }
+
+    /* ── SOLUTION SECTION ORDER ── */
+    .solution-inner .reveal-left { order: 2; }
+    .solution-inner .reveal-right { order: 1; }
+
+    /* ── REPORT SECTION ORDER ── */
+    #report .community-inner { grid-template-columns: 1fr; }
+    #report .report-inner { grid-template-columns: 1fr; }
+    #report .reveal-right { order: 1; justify-content: center; }
+    #report .reveal-left { order: 2; }
+    #report .reveal-right .ai-voice-mockup { justify-content: center; }
+    .ai-phone { margin: 0 auto; }
   }
 
   /* ── GRADIENT BORDER EFFECT ── */
@@ -1140,10 +1237,15 @@
     <a href="#features">기능</a>
     <a href="#report">리포트</a>
     <a href="#community">커뮤니티</a>
-    <a href="#cta" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.85rem;">🔔 출시 알람 받기</a>
+    <a href="https://url.kr/fpzac4" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.85rem;">🔔 출시 알람 받기</a>
   </div>
-  <div class="hamburger" id="hamburger">
-    <span></span><span></span><span></span>
+  <div style="display:flex;align-items:center;gap:0.6rem;">
+    <a href="https://url.kr/fpzac4" target="_blank" rel="noopener" class="btn btn-primary nav-alarm-btn">
+      <i class="fa-solid fa-bell"></i> 출시 알람 받기
+    </a>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
 
@@ -1152,7 +1254,7 @@
   <a href="#features" onclick="closeMobile()">기능</a>
   <a href="#report" onclick="closeMobile()">리포트</a>
   <a href="#community" onclick="closeMobile()">커뮤니티</a>
-  <a href="#cta" onclick="closeMobile()">출시 알람</a>
+  <a href="https://url.kr/fpzac4" target="_blank" rel="noopener" onclick="closeMobile()">🔔 출시 알람 받기</a>
 </div>
 
 <!-- HERO -->
@@ -1180,7 +1282,7 @@
   </p>
 
   <div class="hero-cta reveal delay-3">
-    <a href="#cta" class="btn btn-primary btn-lg">
+    <a href="https://url.kr/fpzac4" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
       <i class="fa-solid fa-bell"></i> 출시 알람 받기
     </a>
     <a href="#features" class="btn btn-outline btn-lg">
@@ -1330,38 +1432,7 @@
 <section id="solution">
   <div class="container">
     <div class="solution-inner">
-      <div class="solution-visual reveal-left">
-        <div class="sol-stats-wrap">
-          <div class="sol-stat-card">
-            <div class="sol-stat-icon" style="background:linear-gradient(135deg,#7C3AED,#A855F7);">
-              <i class="fa-solid fa-wand-magic-sparkles"></i>
-            </div>
-            <div class="sol-stat-num grad-text">3가지</div>
-            <div class="sol-stat-label">AI 보컬 지표<br>실시간 분석</div>
-          </div>
-          <div class="sol-stat-card">
-            <div class="sol-stat-icon" style="background:linear-gradient(135deg,#EC4899,#F472B6);">
-              <i class="fa-solid fa-trophy"></i>
-            </div>
-            <div class="sol-stat-num grad-text">4단계</div>
-            <div class="sol-stat-label">리그 시스템으로<br>동기부여 유지</div>
-          </div>
-          <div class="sol-stat-card">
-            <div class="sol-stat-icon" style="background:linear-gradient(135deg,#06B6D4,#3B82F6);">
-              <i class="fa-solid fa-users"></i>
-            </div>
-            <div class="sol-stat-num grad-text">무제한</div>
-            <div class="sol-stat-label">커뮤니티에서<br>함께 성장</div>
-          </div>
-          <div class="sol-stat-card">
-            <div class="sol-stat-icon" style="background:linear-gradient(135deg,#10B981,#059669);">
-              <i class="fa-solid fa-chalkboard-user"></i>
-            </div>
-            <div class="sol-stat-num grad-text">1:1</div>
-            <div class="sol-stat-label">보컬 트레이너<br>맞춤 연결</div>
-          </div>
-        </div>
-      </div>
+
 
       <div class="reveal-right">
         <div class="section-label"><i class="fa-solid fa-lightbulb"></i> 해결 방법</div>
@@ -1478,38 +1549,7 @@
 <!-- REPORT -->
 <section id="report">
   <div class="container">
-    <div class="community-inner" style="grid-template-columns:1.2fr 1fr;">
-
-      <!-- Text (left) -->
-      <div class="reveal-left">
-        <div class="section-label"><i class="fa-solid fa-chart-line"></i> 보컬 리포트</div>
-        <h2 class="section-title">노래할수록<br><span class="grad-text">실력이 보입니다</span></h2>
-        <p class="section-desc" style="margin-bottom:2rem;">매 녹음마다 AI가 상세 분석 리포트를 생성합니다. 음정·박자·음색을 수치로 확인하고 성장 흐름을 한눈에 파악하세요.</p>
-
-        <div class="community-features">
-          <div class="comm-item">
-            <div class="comm-icon-wrap"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-            <div>
-              <h4>AI 보컬 3대 지표 분석</h4>
-              <p>음정 정확도, 박자 일치율, 음역 안정성을 각각 수치로 측정해 어느 부분이 약한지 정확히 알려줍니다.</p>
-            </div>
-          </div>
-          <div class="comm-item">
-            <div class="comm-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
-            <div>
-              <h4>성장 히스토리 & 트렌드</h4>
-              <p>지난 기록과 비교해 실력이 얼마나 늘었는지 그래프로 확인할 수 있습니다.</p>
-            </div>
-          </div>
-          <div class="comm-item">
-            <div class="comm-icon-wrap"><i class="fa-solid fa-music"></i></div>
-            <div>
-              <h4>곡별·구간별 상세 피드백</h4>
-              <p>어느 소절에서 음이 흔들렸는지, 어떤 구간의 박자가 어긋났는지 타임라인으로 확인합니다.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="community-inner report-inner">
 
       <!-- Report Phone Mockup (right) -->
       <div class="reveal-right" style="display:flex;justify-content:center;">
@@ -1615,6 +1655,38 @@
                 <div style="font-size:0.62rem;color:var(--text2);line-height:1.6;">2절 브릿지 구간의 고음 전환이 매우 자연스러워졌어요. 음색 표현을 더 살리면 완벽할 것 같아요! 🎤</div>
               </div>
 
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Text (left) -->
+      <div class="reveal-left">
+        <div class="section-label"><i class="fa-solid fa-chart-line"></i> 보컬 리포트</div>
+        <h2 class="section-title">노래할수록<br><span class="grad-text">실력이 보입니다</span></h2>
+        <p class="section-desc" style="margin-bottom:2rem;">매 녹음마다 AI가 상세 분석 리포트를 생성합니다. 음정·박자·음색을 수치로 확인하고 성장 흐름을 한눈에 파악하세요.</p>
+
+        <div class="community-features">
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <div>
+              <h4>AI 보컬 3대 지표 분석</h4>
+              <p>음정 정확도, 박자 일치율, 음역 안정성을 각각 수치로 측정해 어느 부분이 약한지 정확히 알려줍니다.</p>
+            </div>
+          </div>
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
+            <div>
+              <h4>성장 히스토리 & 트렌드</h4>
+              <p>지난 기록과 비교해 실력이 얼마나 늘었는지 그래프로 확인할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-solid fa-music"></i></div>
+            <div>
+              <h4>곡별·구간별 상세 피드백</h4>
+              <p>어느 소절에서 음이 흔들렸는지, 어떤 구간의 박자가 어긋났는지 타임라인으로 확인합니다.</p>
             </div>
           </div>
         </div>
@@ -1772,7 +1844,7 @@
     </div>
 
     <div class="reveal delay-1" style="text-align:center;margin-top:0.5rem;">
-      <a href="https://forms.gle/LYMLoUPKgYT1XxJ58" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+      <a href="https://url.kr/fpzac4" target="_blank" rel="noopener" class="btn btn-primary btn-lg">
         <i class="fa-solid fa-bell"></i> 출시 알람 받기
       </a>
     </div>
@@ -1822,7 +1894,7 @@
       <a href="#report">보컬 리포트</a>
       <a href="#community">커뮤니티</a>
       <a href="#flow">사용 방법</a>
-      <a href="#cta">출시 알람</a>
+      <a href="https://url.kr/fpzac4" target="_blank" rel="noopener">출시 알람</a>
     </div>
 
     <div class="footer-col">
