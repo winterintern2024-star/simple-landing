@@ -2,212 +2,1628 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>싱고 - 노래하고 성장하는 커뮤니티</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>싱고 SINGO — 노래하고, 공유하고, 함께 성장하다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+  :root {
+    --grad-start: #7C3AED;
+    --grad-mid: #A855F7;
+    --grad-end: #EC4899;
+    --grad: linear-gradient(135deg, #7C3AED 0%, #A855F7 50%, #EC4899 100%);
+    --grad-soft: linear-gradient(135deg, rgba(124,58,237,0.12) 0%, rgba(236,72,153,0.12) 100%);
+    --bg: #08060F;
+    --bg2: #0E0B1A;
+    --bg3: #13101F;
+    --surface: rgba(255,255,255,0.04);
+    --surface2: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(168,85,247,0.25);
+    --text: #F5F3FF;
+    --text2: #B8B0CC;
+    --text3: #7A7090;
+    --accent: #A855F7;
+    --pink: #EC4899;
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
 
-*{
-    box-sizing:border-box;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-body{
-    margin:0;
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .display { font-family: 'Outfit', sans-serif; }
+  h1, h2, h3 { font-family: 'Outfit', sans-serif; font-weight: 800; line-height: 1.1; }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+  .delay-5 { transition-delay: 0.5s; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 5%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8,6,15,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  .logo {
     font-family: 'Outfit', sans-serif;
-    background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
-    color:white;
-    min-height:100vh;
-}
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-header{
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+    text-decoration: none;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .btn-primary {
+    background: var(--grad);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(168,85,247,0.4);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 30px rgba(168,85,247,0.55);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border2);
+  }
+  .btn-outline:hover {
+    background: var(--surface2);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    border-radius: 100px;
+  }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .orb1 { width: 500px; height: 500px; background: rgba(124,58,237,0.25); top: -100px; left: -150px; animation: float1 8s ease-in-out infinite; }
+  .orb2 { width: 400px; height: 400px; background: rgba(236,72,153,0.2); bottom: -80px; right: -100px; animation: float2 10s ease-in-out infinite; }
+  .orb3 { width: 300px; height: 300px; background: rgba(168,85,247,0.15); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: float3 6s ease-in-out infinite; }
+
+  @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,20px)} }
+  @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,-30px)} }
+  @keyframes float3 { 0%,100%{transform:translate(-50%,-50%)} 50%{transform:translate(-50%,-45%)} }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: rgba(168,85,247,0.1);
+    border: 1px solid rgba(168,85,247,0.3);
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+    line-height: 1.05;
+  }
+
+  .grad-text {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--text2);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* Phone mockup */
+  .phone {
+    width: 240px;
+    margin: 0 auto;
+    background: #1A1527;
+    border-radius: 40px;
+    border: 2px solid rgba(168,85,247,0.3);
+    padding: 12px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(168,85,247,0.15);
+    position: relative;
+    z-index: 2;
+  }
+
+  .phone-notch {
+    width: 80px; height: 20px;
+    background: #0E0B1A;
+    border-radius: 10px;
+    margin: 0 auto 10px;
+  }
+
+  .phone-screen {
+    background: var(--bg2);
+    border-radius: 28px;
+    overflow: hidden;
+    aspect-ratio: 9/19;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-header {
+    background: var(--grad);
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .phone-header-logo { font-family:'Outfit',sans-serif; font-weight:900; font-size:1rem; color:#fff; }
+  .phone-header-score { margin-left:auto; background:rgba(255,255,255,0.2); border-radius:20px; padding:3px 10px; font-size:0.7rem; color:#fff; font-weight:600; }
+
+  .phone-body { padding: 10px; flex:1; display:flex; flex-direction:column; gap:8px; }
+
+  .phone-song-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .song-thumb {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .song-info { flex:1; min-width:0; }
+  .song-title { font-size:0.72rem; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .song-artist { font-size:0.62rem; color:var(--text3); margin-top:2px; }
+
+  .song-score { font-family:'Outfit',sans-serif; font-weight:800; font-size:0.85rem; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+  .waveform {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 0 12px;
+  }
+  .wave-bar {
+    width: 3px;
+    background: var(--grad);
+    border-radius: 2px;
+    animation: wave 1.2s ease-in-out infinite;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+  }
+
+  .phone-score-section { padding: 6px 10px; }
+  .score-big {
+    font-family:'Outfit',sans-serif;
+    font-size:2rem;
+    font-weight:900;
     text-align:center;
-    padding:100px 20px;
-    background:linear-gradient(135deg,#ff00cc,#333399);
-    position:relative;
-    overflow:hidden;
-}
+    background:var(--grad);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .score-label { text-align:center; font-size:0.65rem; color:var(--text3); margin-top:2px; }
+  .score-bars { display:flex; gap:4px; margin-top:8px; }
+  .score-bar-item { flex:1; }
+  .score-bar-label { font-size:0.55rem; color:var(--text3); margin-bottom:3px; }
+  .score-bar-track { height:4px; background:var(--surface2); border-radius:2px; overflow:hidden; }
+  .score-bar-fill { height:100%; border-radius:2px; background:var(--grad); }
 
-header::before{
+  /* Floating cards */
+  .float-card {
+    position: absolute;
+    background: rgba(20,16,35,0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    z-index: 3;
+    animation: cardFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes cardFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  .fc-rank { top: 10%; left: -10%; animation-delay:0s; }
+  .fc-ai { top: 30%; right: -5%; animation-delay:1.5s; }
+  .fc-duet { bottom: 20%; left: -8%; animation-delay:0.8s; }
+
+  .fc-title { font-size:0.65rem; color:var(--text3); margin-bottom:4px; display:flex; align-items:center; gap:5px; }
+  .fc-val { font-family:'Outfit',sans-serif; font-size:1rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .fc-sub { font-size:0.6rem; color:var(--text3); margin-top:2px; }
+  .fc-icon { color:var(--accent); }
+
+  /* Stars */
+  .stars-row { display:flex; gap:2px; }
+  .star { color:#FBBF24; font-size:0.75rem; }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 100px 5%; }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.15;
+  }
+
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text2);
+    line-height: 1.8;
+    max-width: 560px;
+  }
+
+  /* ── PROBLEM ── */
+  #problem { background: var(--bg2); }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .problem-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--grad);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .problem-card:hover::before { opacity: 1; }
+
+  .problem-emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+  .problem-card h3 { font-size: 1.15rem; margin-bottom: 0.6rem; font-weight: 700; }
+  .problem-card p { color: var(--text2); font-size: 0.92rem; line-height: 1.7; }
+
+  /* ── SOLUTION ── */
+  #solution {
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #solution::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+    top: -200px; right: -200px;
+    pointer-events: none;
+  }
+
+  .solution-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .solution-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sol-ring {
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .sol-ring::before {
     content:'';
     position:absolute;
-    top:-50%;
-    left:-50%;
-    width:200%;
-    height:200%;
-    background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 60%);
-    animation:shine 3s infinite linear;
-}
+    inset:-20px;
+    border-radius:50%;
+    border: 1px dashed rgba(168,85,247,0.2);
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-@keyframes shine{
-    0%{transform:rotate(0deg);}
-    100%{transform:rotate(360deg);}
-}
+  .sol-center {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: var(--grad);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 0 60px rgba(168,85,247,0.4);
+  }
 
-header h1{
-    font-size:72px;
-    margin-bottom:10px;
-    font-weight:800;
-    text-shadow:0 0 30px rgba(255,0,204,0.5);
-}
+  .sol-dot {
+    position: absolute;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 2px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+  .sol-dot:nth-child(2) { top: -10px; left: 50%; transform: translateX(-50%); }
+  .sol-dot:nth-child(3) { bottom: -10px; left: 50%; transform: translateX(-50%); }
+  .sol-dot:nth-child(4) { left: -10px; top: 50%; transform: translateY(-50%); }
+  .sol-dot:nth-child(5) { right: -10px; top: 50%; transform: translateY(-50%); }
 
-header p{
-    font-size:22px;
-    opacity:0.95;
-    font-weight:400;
-}
+  .solution-points { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
 
-.cta{
-    margin-top:35px;
-}
+  .sol-point {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.2rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    transition: all 0.3s;
+  }
+  .sol-point:hover { background: var(--surface); border-color: var(--border); }
 
-.cta button{
-    padding:18px 45px;
-    border:none;
-    border-radius:50px;
-    font-size:18px;
-    cursor:pointer;
-    background:linear-gradient(90deg,#ff00cc,#ff6b6b);
-    color:white;
-    font-weight:600;
-    transition:all 0.3s ease;
-    box-shadow:0 5px 25px rgba(255,0,204,0.4);
-}
+  .sol-point-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--grad-soft);
+    border: 1px solid var(--border2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+  .sol-point h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; font-family:'Outfit',sans-serif; }
+  .sol-point p { font-size: 0.88rem; color: var(--text2); line-height: 1.6; }
 
-.cta button:hover{
-    transform:translateY(-3px);
-    box-shadow:0 10px 35px rgba(255,0,204,0.6);
-}
+  /* ── FEATURES ── */
+  #features { background: var(--bg2); }
 
-.section{
-    padding:80px 20px;
-    text-align:center;
-}
+  .features-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
 
-.section h2{
-    font-size:36px;
-    margin-bottom:20px;
-    font-weight:600;
-}
+  .tab-btn {
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text3);
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--grad);
+    border-color: transparent;
+    color: #fff;
+  }
 
-.section p{
-    font-size:18px;
-    opacity:0.9;
-    max-width:600px;
-    margin:10px auto;
-    line-height:1.6;
-}
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
 
-.features{
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    flex-wrap:wrap;
-    margin-top:50px;
-}
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card:hover {
+    border-color: rgba(168,85,247,0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(168,85,247,0.1);
+  }
 
-.card{
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(10px);
-    padding:35px;
-    width:280px;
-    border-radius:24px;
-    border:1px solid rgba(255,255,255,0.15);
-    transition:all 0.3s ease;
-}
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--grad-soft);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feature-card:hover::after { opacity: 1; }
 
-.card:hover{
-    transform:translateY(-10px);
-    background:rgba(255,255,255,0.15);
-    border-color:rgba(255,0,204,0.5);
-    box-shadow:0 20px 40px rgba(0,0,0,0.3);
-}
+  .feature-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 15px rgba(168,85,247,0.35);
+  }
 
-.card h3{
-    font-size:22px;
-    margin-bottom:12px;
-    color:#ff6b6b;
-}
+  .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+  .feature-card p { font-size: 0.87rem; color: var(--text2); line-height: 1.65; position: relative; z-index: 1; }
 
-.card p{
-    font-size:15px;
-    line-height:1.5;
-}
+  .feature-tag {
+    display: inline-block;
+    margin-top: 0.8rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(168,85,247,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(168,85,247,0.2);
+    position: relative;
+    z-index: 1;
+  }
 
-footer{
-    text-align:center;
-    padding:30px;
-    background:linear-gradient(90deg,#1a1a2e,#16213e);
-    border-top:1px solid rgba(255,255,255,0.1);
-}
+  /* ── FLOW ── */
+  #flow { background: var(--bg); }
 
-footer p{
-    opacity:0.6;
-    font-size:14px;
-}
+  .flow-steps {
+    display: flex;
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .flow-step {
+    flex: 1;
+    min-width: 180px;
+    text-align: center;
+    position: relative;
+    padding: 0 1rem;
+  }
+
+  .flow-step::after {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: calc(50% + 35px);
+    right: calc(-50% + 35px);
+    height: 1px;
+    background: var(--grad);
+    opacity: 0.4;
+  }
+  .flow-step:last-child::after { display: none; }
+
+  .flow-num {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: var(--grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #fff;
+    margin: 0 auto 1.2rem;
+    box-shadow: 0 0 30px rgba(168,85,247,0.35);
+  }
+
+  .flow-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .flow-step p { font-size: 0.85rem; color: var(--text2); line-height: 1.6; }
+  .flow-step-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+
+  /* ── COMMUNITY ── */
+  #community {
+    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #community::before {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(236,72,153,0.06) 0%, transparent 70%);
+    bottom: -300px; left: -200px;
+    pointer-events: none;
+  }
+
+  .community-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .feed-mockup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .feed-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s;
+  }
+  .feed-card:hover { border-color: var(--border2); transform: translateX(6px); }
+
+  .feed-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: 2px solid var(--border2);
+  }
+
+  .feed-info { flex: 1; min-width: 0; }
+  .feed-name { font-size: 0.88rem; font-weight: 600; }
+  .feed-song { font-size: 0.78rem; color: var(--text3); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .feed-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .feed-score-badge {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .feed-reactions { display: flex; gap: 8px; }
+  .feed-reaction { font-size: 0.72rem; color: var(--text3); display: flex; align-items: center; gap: 3px; }
+
+  .community-features { display: flex; flex-direction: column; gap: 1.5rem; }
+  .comm-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .comm-icon-wrap {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: var(--grad);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(168,85,247,0.3);
+  }
+  .comm-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .comm-item p { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+
+  /* ── STATS ── */
+  .stats-strip {
+    background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(236,72,153,0.1));
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 50px 5%;
+  }
+
+  .stats-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label { font-size: 0.88rem; color: var(--text3); }
+
+  /* ── LEAGUE ── */
+  .league-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .league-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .league-badge:hover { border-color: var(--border2); transform: scale(1.03); }
+  .league-badge span:first-child { font-size: 1.2rem; }
+
+  /* ── CTA ── */
+  #cta {
+    background: var(--bg);
+    text-align: center;
+    padding: 120px 5%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-title { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .cta-desc { font-size: 1.1rem; color: var(--text2); margin-bottom: 2.5rem; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  .store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.6rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.3s;
+    min-width: 160px;
+  }
+  .store-btn:hover { border-color: var(--border2); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+  .store-btn i { font-size: 1.5rem; }
+  .store-btn-text { text-align: left; }
+  .store-btn-small { font-size: 0.65rem; color: var(--text3); }
+  .store-btn-big { font-size: 0.95rem; font-weight: 700; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 60px 5% 40px;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .footer-brand { }
+  .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.5rem; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.8rem; }
+  .footer-desc { font-size: 0.87rem; color: var(--text3); line-height: 1.7; max-width: 220px; }
+  .footer-social { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
+  .social-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text3);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .social-icon:hover { border-color: var(--border2); color: var(--accent); transform: translateY(-2px); }
+
+  .footer-col h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+  .footer-col a { display: block; font-size: 0.84rem; color: var(--text3); text-decoration: none; margin-bottom: 0.6rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--accent); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 2.5rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.82rem;
+    color: var(--text3);
+  }
+
+  /* ── MOBILE NAV ── */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 70px; left: 0; right: 0;
+    background: rgba(8,6,15,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 5%;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 99;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { color: var(--text2); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .solution-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .sol-ring { width: 200px; height: 200px; }
+    .sol-center { width: 110px; height: 110px; font-size: 1.8rem; }
+    .community-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .flow-step::after { display: none; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 4%; }
+    section { padding: 70px 4%; }
+    .hero-title { font-size: 2.4rem; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr; }
+    .flow-steps { flex-direction: column; align-items: center; }
+    .fc-rank, .fc-ai, .fc-duet { display: none; }
+    .float-card { display: none; }
+  }
+
+  /* ── GRADIENT BORDER EFFECT ── */
+  .glow-border {
+    position: relative;
+  }
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--grad);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .glow-border:hover::before { opacity: 1; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.4); border-radius: 5px; }
+
+  /* Pulse animation for mic */
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
 </style>
 </head>
-
 <body>
 
-<header>
-<h1>🎤 SingGo</h1>
-<p>노래하고, 공유하고, 함께 성장하는 노래 커뮤니티</p>
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="logo">SINGO</div>
+  <div class="nav-links">
+    <a href="#problem">소개</a>
+    <a href="#features">기능</a>
+    <a href="#community">커뮤니티</a>
+    <a href="#cta">다운로드</a>
+    <a href="#cta" class="btn btn-primary" style="padding:0.5rem 1.1rem;font-size:0.85rem;">지금 시작하기</a>
+  </div>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-<div class="cta">
-<button>앱 출시 알림 받기</button>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#problem" onclick="closeMobile()">소개</a>
+  <a href="#features" onclick="closeMobile()">기능</a>
+  <a href="#community" onclick="closeMobile()">커뮤니티</a>
+  <a href="#cta" onclick="closeMobile()">다운로드</a>
 </div>
-</header>
 
+<!-- HERO -->
+<section id="hero">
+  <div class="orb hero-bg-orb orb1"></div>
+  <div class="orb hero-bg-orb orb2"></div>
+  <div class="orb hero-bg-orb orb3"></div>
 
-<section class="section">
-<h2>이런 경험 해보셨나요?</h2>
-<p>혼자 코인노래방에서 노래를 부르지만 내 실력이 어떤지 궁금했던 적.</p>
-<p>다른 사람들과 노래를 공유하고 소통하고 싶었던 적.</p>
+  <div class="hero-badge reveal">
+    <i class="fa-solid fa-microphone-lines"></i>
+    AI 보컬 분석 플랫폼 · 2024 출시 예정
+  </div>
+
+  <h1 class="hero-title reveal delay-1">
+    노래로 연결되는<br>
+    <span class="grad-text">나만의 성장 여정</span>
+  </h1>
+
+  <p class="hero-sub reveal delay-2">
+    부르고, 분석하고, 공유하세요. AI가 당신의 음정·박자·음색을 분석하고,<br>
+    전 세계 싱어들과 함께 성장하는 플랫폼 <strong>싱고</strong>입니다.
+  </p>
+
+  <div class="hero-cta reveal delay-3">
+    <a href="#cta" class="btn btn-primary btn-lg">
+      <i class="fa-solid fa-play"></i> 무료로 시작하기
+    </a>
+    <a href="#features" class="btn btn-outline btn-lg">
+      기능 살펴보기 <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </div>
+
+  <!-- Phone mockup -->
+  <div class="hero-visual reveal delay-4">
+    <div style="position:relative; display:inline-block;">
+
+      <!-- Floating cards -->
+      <div class="float-card fc-rank">
+        <div class="fc-title"><i class="fa-solid fa-trophy fc-icon"></i> 내 리그 순위</div>
+        <div class="fc-val">🥈 Silver #12</div>
+        <div class="fc-sub">이번 주 +3단계 상승</div>
+      </div>
+
+      <div class="float-card fc-ai">
+        <div class="fc-title"><i class="fa-solid fa-wand-magic-sparkles fc-icon"></i> AI 분석</div>
+        <div class="fc-val">음정 94%</div>
+        <div class="fc-sub">박자 일치도 매우 우수</div>
+      </div>
+
+      <div class="float-card fc-duet">
+        <div class="fc-title"><i class="fa-solid fa-users fc-icon"></i> 듀엣 요청</div>
+        <div class="fc-val">+3명</div>
+        <div class="stars-row">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+      </div>
+
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-header-logo">🎵 SINGO</div>
+            <div class="phone-header-score">Gold Lv.3</div>
+          </div>
+          <div class="phone-body">
+            <!-- Song playing -->
+            <div class="phone-song-card">
+              <svg class="song-thumb" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                <rect width="36" height="36" rx="8" fill="url(#sg1)"/>
+                <defs><linearGradient id="sg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#EC4899"/></linearGradient></defs>
+                <text x="18" y="23" text-anchor="middle" font-size="16">🎤</text>
+              </svg>
+              <div class="song-info">
+                <div class="song-title">밤편지 — IU</div>
+                <div class="song-artist">재생 중 · 3:24</div>
+              </div>
+              <div class="song-score">97</div>
+            </div>
+
+            <!-- Waveform -->
+            <div class="waveform">
+              <div class="wave-bar" style="height:18px;animation-delay:0s"></div>
+              <div class="wave-bar" style="height:28px;animation-delay:0.1s"></div>
+              <div class="wave-bar" style="height:14px;animation-delay:0.2s"></div>
+              <div class="wave-bar" style="height:32px;animation-delay:0.3s"></div>
+              <div class="wave-bar" style="height:20px;animation-delay:0.4s"></div>
+              <div class="wave-bar" style="height:36px;animation-delay:0.5s"></div>
+              <div class="wave-bar" style="height:24px;animation-delay:0.6s"></div>
+              <div class="wave-bar" style="height:30px;animation-delay:0.7s"></div>
+              <div class="wave-bar" style="height:16px;animation-delay:0.8s"></div>
+              <div class="wave-bar" style="height:28px;animation-delay:0.9s"></div>
+              <div class="wave-bar" style="height:22px;animation-delay:1s"></div>
+              <div class="wave-bar" style="height:34px;animation-delay:1.1s"></div>
+            </div>
+
+            <!-- Score -->
+            <div class="phone-score-section">
+              <div class="score-big">97점</div>
+              <div class="score-label">🎉 최고 점수 달성!</div>
+              <div class="score-bars" style="margin-top:8px;">
+                <div class="score-bar-item">
+                  <div class="score-bar-label">음정</div>
+                  <div class="score-bar-track"><div class="score-bar-fill" style="width:94%"></div></div>
+                </div>
+                <div class="score-bar-item">
+                  <div class="score-bar-label">박자</div>
+                  <div class="score-bar-track"><div class="score-bar-fill" style="width:98%"></div></div>
+                </div>
+                <div class="score-bar-item">
+                  <div class="score-bar-label">음색</div>
+                  <div class="score-bar-track"><div class="score-bar-fill" style="width:88%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Another song -->
+            <div class="phone-song-card" style="opacity:0.6;">
+              <svg class="song-thumb" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                <rect width="36" height="36" rx="8" fill="url(#sg2)"/>
+                <defs><linearGradient id="sg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06B6D4"/><stop offset="100%" stop-color="#3B82F6"/></linearGradient></defs>
+                <text x="18" y="23" text-anchor="middle" font-size="16">🎵</text>
+              </svg>
+              <div class="song-info">
+                <div class="song-title">사랑해 — 버즈</div>
+                <div class="song-artist">추천 곡</div>
+              </div>
+              <div class="song-score">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-
-<section class="section">
-<h2>SingGo가 해결합니다</h2>
-
-<div class="features">
-
-<div class="card">
-<h3>🎵 노래 실력 분석</h3>
-<p>음정, 박자, 안정성 등을 AI가 분석하여 상세 리포트를 제공합니다.</p>
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-grid">
+    <div class="reveal">
+      <div class="stat-num">50만+</div>
+      <div class="stat-label">사전등록 사용자</div>
+    </div>
+    <div class="reveal delay-1">
+      <div class="stat-num">10만+</div>
+      <div class="stat-label">수록 곡</div>
+    </div>
+    <div class="reveal delay-2">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">AI 분석 정확도</div>
+    </div>
+    <div class="reveal delay-3">
+      <div class="stat-num">4.9★</div>
+      <div class="stat-label">사용자 만족도</div>
+    </div>
+  </div>
 </div>
 
-<div class="card">
-<h3>📈 성장 데이터</h3>
-<p>노래 점수와 분석 데이터를 통해 실력 변화를 확인할 수 있습니다.</p>
-</div>
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label"><i class="fa-solid fa-circle-question"></i> 문제 정의</div>
+      <h2 class="section-title">노래 좋아하는데,<br>왜 실력이 늘지 않을까?</h2>
+      <p class="section-desc">코인노래방에서 혼자 부르는 것만으로는 한계가 있습니다. 객관적인 피드백도, 함께 성장할 커뮤니티도 없죠.</p>
+    </div>
 
-<div class="card">
-<h3>🎭 노래 커뮤니티</h3>
-<p>다른 사용자와 노래를 공유하고 피드백을 받을 수 있습니다.</p>
-</div>
-
-<div class="card">
-<h3>🏆 랭킹 & 리그</h3>
-<p>점수 기반 랭킹 시스템으로 노래 경쟁의 재미를 느껴보세요.</p>
-</div>
-
-</div>
+    <div class="problem-grid">
+      <div class="problem-card reveal delay-1">
+        <div class="problem-emoji">😓</div>
+        <h3>혼자 부르면 뭐가 문제인지 모른다</h3>
+        <p>음정이 틀렸는지, 박자가 빨랐는지 — 스스로는 판단하기 어렵습니다. 객관적인 피드백 없이는 성장도 없습니다.</p>
+      </div>
+      <div class="problem-card reveal delay-2">
+        <div class="problem-emoji">🏝</div>
+        <h3>노래를 공유할 공간이 없다</h3>
+        <p>열심히 연습한 노래를 올릴 곳도, 비슷한 취미를 가진 사람과 연결될 플랫폼도 마땅히 없습니다.</p>
+      </div>
+      <div class="problem-card reveal delay-3">
+        <div class="problem-emoji">📉</div>
+        <h3>동기부여가 오래 지속되지 않는다</h3>
+        <p>혼자 연습하면 금방 흥미를 잃게 됩니다. 목표와 경쟁, 커뮤니티 없이는 지속적인 동기부여가 힘듭니다.</p>
+      </div>
+      <div class="problem-card reveal delay-4">
+        <div class="problem-emoji">💸</div>
+        <h3>보컬 레슨은 너무 비싸다</h3>
+        <p>전문 보컬 트레이너 레슨은 비용 부담이 크고 접근성이 낮습니다. AI 분석으로 누구나 전문적인 피드백을 받을 수 있어야 합니다.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="container">
+    <div class="solution-inner">
+      <div class="solution-visual reveal-left">
+        <div class="sol-ring">
+          <div class="sol-dot">🎤</div>
+          <div class="sol-dot">🤖</div>
+          <div class="sol-dot">👥</div>
+          <div class="sol-dot">🏆</div>
+          <div class="sol-center">🎵</div>
+        </div>
+      </div>
 
-<section class="section">
-<h2>노래를 좋아한다면</h2>
-<p>SingGo에서 당신의 목소리를 세상과 공유하세요.</p>
+      <div class="reveal-right">
+        <div class="section-label"><i class="fa-solid fa-lightbulb"></i> 해결 방법</div>
+        <h2 class="section-title">싱고가 답입니다</h2>
+        <p class="section-desc" style="margin-bottom:0;">노래 · AI 분석 · 커뮤니티를 하나로 연결한 올인원 보컬 성장 플랫폼.</p>
 
-<div class="cta">
-<button>서비스 시작하기</button>
-</div>
-
+        <div class="solution-points">
+          <div class="sol-point">
+            <div class="sol-point-icon"><i class="fa-solid fa-brain"></i></div>
+            <div>
+              <h4>AI 실시간 보컬 분석</h4>
+              <p>음정·박자·음색을 실시간으로 분석하여 전문가 수준의 피드백을 즉시 제공합니다.</p>
+            </div>
+          </div>
+          <div class="sol-point">
+            <div class="sol-point-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div>
+              <h4>점수 기반 성장 시스템</h4>
+              <p>매번 노래할 때마다 점수가 기록되고, 리그 랭킹에서 다른 사용자와 경쟁하며 동기부여를 유지합니다.</p>
+            </div>
+          </div>
+          <div class="sol-point">
+            <div class="sol-point-icon"><i class="fa-solid fa-users"></i></div>
+            <div>
+              <h4>함께 성장하는 커뮤니티</h4>
+              <p>숏폼 피드, 듀엣, 보컬 트레이너 연결까지 — 혼자가 아닌 함께 성장하는 환경을 만듭니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:3rem;">
+      <div class="section-label" style="justify-content:center;"><i class="fa-solid fa-stars"></i> 핵심 기능</div>
+      <h2 class="section-title">노래의 모든 것,<br>싱고 하나로</h2>
+    </div>
+
+    <div class="features-tabs reveal">
+      <button class="tab-btn active" onclick="filterFeatures('all')">전체</button>
+      <button class="tab-btn" onclick="filterFeatures('sing')">🎤 노래</button>
+      <button class="tab-btn" onclick="filterFeatures('ai')">🤖 AI</button>
+      <button class="tab-btn" onclick="filterFeatures('community')">👥 커뮤니티</button>
+    </div>
+
+    <div class="features-grid" id="featuresGrid">
+      <div class="feature-card reveal delay-1" data-cat="sing">
+        <div class="feature-icon"><i class="fa-solid fa-microphone"></i></div>
+        <h3>노래 녹음 & 점수</h3>
+        <p>원하는 노래를 선택하고 바로 녹음하세요. AI가 실시간으로 점수를 계산하여 즉시 피드백합니다.</p>
+        <span class="feature-tag">🎤 노래</span>
+      </div>
+
+      <div class="feature-card reveal delay-2" data-cat="ai">
+        <div class="feature-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <h3>AI 음정·박자·음색 분석</h3>
+        <p>세 가지 지표를 심층 분석한 리포트로 어디서 틀렸는지, 어떤 부분을 개선해야 하는지 정확히 알려드립니다.</p>
+        <span class="feature-tag">🤖 AI</span>
+      </div>
+
+      <div class="feature-card reveal delay-3" data-cat="ai">
+        <div class="feature-icon"><i class="fa-solid fa-music"></i></div>
+        <h3>개인 맞춤 노래 추천</h3>
+        <p>내 음역대, 선호 장르, 실력 수준에 맞는 노래를 AI가 추천합니다. 부를수록 더 정교해지는 추천 엔진.</p>
+        <span class="feature-tag">🤖 AI</span>
+      </div>
+
+      <div class="feature-card reveal delay-1" data-cat="sing">
+        <div class="feature-icon"><i class="fa-solid fa-handshake"></i></div>
+        <h3>실시간 듀엣</h3>
+        <p>전 세계 사용자와 실시간으로 듀엣을 즐기세요. 또는 녹음된 목소리에 내 파트를 덧입히는 비동기 듀엣도 가능합니다.</p>
+        <span class="feature-tag">🎤 노래</span>
+      </div>
+
+      <div class="feature-card reveal delay-2" data-cat="sing">
+        <div class="feature-icon"><i class="fa-solid fa-trophy"></i></div>
+        <h3>리그 시스템</h3>
+        <p>Bronze에서 Diamond까지. 주간 리그에서 점수를 쌓고 승급하세요. 시즌 종료 시 특별 보상이 기다립니다.</p>
+        <span class="feature-tag">🎤 노래</span>
+        <div class="league-row" style="margin-top:0.8rem;">
+          <div class="league-badge" style="font-size:0.75rem; padding:0.4rem 0.8rem;">🥉 Bronze</div>
+          <div class="league-badge" style="font-size:0.75rem; padding:0.4rem 0.8rem;">🥈 Silver</div>
+          <div class="league-badge" style="font-size:0.75rem; padding:0.4rem 0.8rem;">🥇 Gold</div>
+          <div class="league-badge" style="font-size:0.75rem; padding:0.4rem 0.8rem;">💎 Diamond</div>
+        </div>
+      </div>
+
+      <div class="feature-card reveal delay-3" data-cat="community">
+        <div class="feature-icon"><i class="fa-brands fa-tiktok"></i></div>
+        <h3>숏폼 노래 피드</h3>
+        <p>틱톡 스타일의 세로 피드에서 다른 사람들의 노래를 감상하고 반응하세요. 내 베스트 컷을 공유하세요.</p>
+        <span class="feature-tag">👥 커뮤니티</span>
+      </div>
+
+      <div class="feature-card reveal delay-1" data-cat="community">
+        <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
+        <h3>AI 캐릭터 음성 콘텐츠</h3>
+        <p>나만의 AI 캐릭터 보이스를 생성하고, 캐릭터가 노래하는 콘텐츠를 만들어 공유하세요.</p>
+        <span class="feature-tag">🤖 AI</span>
+      </div>
+
+      <div class="feature-card reveal delay-2" data-cat="community">
+        <div class="feature-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+        <h3>보컬 트레이너 매칭</h3>
+        <p>전문 보컬 트레이너와 1:1 레슨을 연결해드립니다. AI 분석 리포트를 공유하여 맞춤형 레슨을 받으세요.</p>
+        <span class="feature-tag">👥 커뮤니티</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section id="flow">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:1rem;">
+      <div class="section-label" style="justify-content:center;"><i class="fa-solid fa-arrow-right-arrow-left"></i> 사용자 경험</div>
+      <h2 class="section-title">딱 4단계,<br>바로 시작하세요</h2>
+    </div>
+
+    <div class="flow-steps">
+      <div class="flow-step reveal delay-1">
+        <div class="flow-num">1</div>
+        <div class="flow-step-icon">📱</div>
+        <h3>앱 설치 & 가입</h3>
+        <p>30초 만에 가입하고 프로필을 설정하세요. 선호 장르와 실력 수준을 입력하면 완료.</p>
+      </div>
+      <div class="flow-step reveal delay-2">
+        <div class="flow-num">2</div>
+        <div class="flow-step-icon">🎵</div>
+        <h3>노래 선택 & 녹음</h3>
+        <p>10만 곡 라이브러리에서 원하는 곡을 골라 바로 녹음하세요.</p>
+      </div>
+      <div class="flow-step reveal delay-3">
+        <div class="flow-num">3</div>
+        <div class="flow-step-icon">🤖</div>
+        <h3>AI 분석 리포트 확인</h3>
+        <p>음정·박자·음색 분석 결과를 한눈에 확인하고 어디서 실수했는지 파악하세요.</p>
+      </div>
+      <div class="flow-step reveal delay-4">
+        <div class="flow-num">4</div>
+        <div class="flow-step-icon">🌟</div>
+        <h3>공유 & 성장</h3>
+        <p>커뮤니티에 공유하고, 리그에 참여해 경쟁하며, 매일 실력을 키워가세요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section id="community">
+  <div class="container">
+    <div class="community-inner">
+      <!-- Feed mockup -->
+      <div class="feed-mockup reveal-left">
+        <div style="font-size:0.8rem; color:var(--text3); margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+          <i class="fa-solid fa-fire" style="color:var(--pink);"></i> 지금 인기 있는 노래
+        </div>
+        <div class="feed-card">
+          <div class="feed-avatar" style="background:linear-gradient(135deg,#7C3AED,#EC4899);">🎤</div>
+          <div class="feed-info">
+            <div class="feed-name">jenny_vocal</div>
+            <div class="feed-song">밤편지 · IU</div>
+          </div>
+          <div class="feed-right">
+            <div class="feed-score-badge">97점</div>
+            <div class="feed-reactions">
+              <span class="feed-reaction"><i class="fa-solid fa-heart" style="color:#EC4899;"></i> 2.4k</span>
+              <span class="feed-reaction"><i class="fa-solid fa-comment"></i> 184</span>
+            </div>
+          </div>
+        </div>
+        <div class="feed-card">
+          <div class="feed-avatar" style="background:linear-gradient(135deg,#06B6D4,#3B82F6);">🎵</div>
+          <div class="feed-info">
+            <div class="feed-name">sing_master_k</div>
+            <div class="feed-song">눈의 꽃 · 박효신</div>
+          </div>
+          <div class="feed-right">
+            <div class="feed-score-badge">95점</div>
+            <div class="feed-reactions">
+              <span class="feed-reaction"><i class="fa-solid fa-heart" style="color:#EC4899;"></i> 1.8k</span>
+              <span class="feed-reaction"><i class="fa-solid fa-comment"></i> 96</span>
+            </div>
+          </div>
+        </div>
+        <div class="feed-card">
+          <div class="feed-avatar" style="background:linear-gradient(135deg,#F59E0B,#EF4444);">🌟</div>
+          <div class="feed-info">
+            <div class="feed-name">duet_lovers</div>
+            <div class="feed-song">사랑을 했다 (듀엣) · iKON</div>
+          </div>
+          <div class="feed-right">
+            <div class="feed-score-badge">91점</div>
+            <div class="feed-reactions">
+              <span class="feed-reaction"><i class="fa-solid fa-heart" style="color:#EC4899;"></i> 3.1k</span>
+              <span class="feed-reaction"><i class="fa-solid fa-comment"></i> 220</span>
+            </div>
+          </div>
+        </div>
+        <div class="feed-card">
+          <div class="feed-avatar" style="background:linear-gradient(135deg,#10B981,#059669);">🎶</div>
+          <div class="feed-info">
+            <div class="feed-name">minjung_sing</div>
+            <div class="feed-song">좋아 · 박재범</div>
+          </div>
+          <div class="feed-right">
+            <div class="feed-score-badge">88점</div>
+            <div class="feed-reactions">
+              <span class="feed-reaction"><i class="fa-solid fa-heart" style="color:#EC4899;"></i> 987</span>
+              <span class="feed-reaction"><i class="fa-solid fa-comment"></i> 62</span>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:0.5rem;">
+          <a href="#cta" class="btn btn-outline" style="font-size:0.82rem; padding:0.5rem 1.2rem;">더보기 <i class="fa-solid fa-chevron-down"></i></a>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="reveal-right">
+        <div class="section-label"><i class="fa-solid fa-users"></i> 커뮤니티</div>
+        <h2 class="section-title">혼자가 아닌,<br><span class="grad-text">함께 성장</span></h2>
+        <p class="section-desc" style="margin-bottom:2rem;">싱고의 커뮤니티는 단순한 피드가 아닙니다. 서로의 노래에 반응하고, 듀엣하고, 성장을 응원하는 공간입니다.</p>
+
+        <div class="community-features">
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-brands fa-tiktok"></i></div>
+            <div>
+              <h4>숏폼 노래 피드</h4>
+              <p>내 최고 퍼포먼스를 세로 영상으로 공유하고, 다른 싱어들의 무대를 감상하세요.</p>
+            </div>
+          </div>
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-solid fa-robot"></i></div>
+            <div>
+              <h4>AI 캐릭터 보이스</h4>
+              <p>나만의 AI 보컬 캐릭터를 만들어 색다른 콘텐츠로 팔로워들을 즐겁게 하세요.</p>
+            </div>
+          </div>
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div>
+              <h4>전문 트레이너 연결</h4>
+              <p>내 AI 분석 리포트를 바탕으로 검증된 보컬 트레이너와 1:1 레슨을 시작하세요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="reveal">
+      <div class="section-label" style="justify-content:center;"><i class="fa-solid fa-rocket"></i> 지금 시작하기</div>
+      <h2 class="cta-title">당신의 노래 여정,<br><span class="grad-text">오늘 시작하세요</span></h2>
+      <p class="cta-desc">무료로 시작할 수 있습니다. 지금 다운로드하고 첫 번째 AI 분석 리포트를 받아보세요.</p>
+    </div>
+
+    <div class="cta-btns reveal delay-1">
+      <a href="#" class="store-btn">
+        <i class="fa-brands fa-apple"></i>
+        <div class="store-btn-text">
+          <div class="store-btn-small">Download on the</div>
+          <div class="store-btn-big">App Store</div>
+        </div>
+      </a>
+      <a href="#" class="store-btn">
+        <i class="fa-brands fa-google-play"></i>
+        <div class="store-btn-text">
+          <div class="store-btn-small">Get it on</div>
+          <div class="store-btn-big">Google Play</div>
+        </div>
+      </a>
+      <a href="#" class="btn btn-primary btn-lg reveal delay-2">
+        <i class="fa-solid fa-envelope"></i> 사전등록 하기
+      </a>
+    </div>
+
+    <div class="reveal delay-3" style="margin-top:3rem; display:flex; justify-content:center; gap:2rem; flex-wrap:wrap;">
+      <div style="display:flex; align-items:center; gap:0.5rem; color:var(--text3); font-size:0.87rem;">
+        <i class="fa-solid fa-shield-check" style="color:var(--accent);"></i> 100% 무료 시작
+      </div>
+      <div style="display:flex; align-items:center; gap:0.5rem; color:var(--text3); font-size:0.87rem;">
+        <i class="fa-solid fa-credit-card" style="color:var(--accent);"></i> 카드 불필요
+      </div>
+      <div style="display:flex; align-items:center; gap:0.5rem; color:var(--text3); font-size:0.87rem;">
+        <i class="fa-solid fa-star" style="color:var(--accent);"></i> 10만 곡 무제한 이용
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-<p>© 2026 SingGo. All rights reserved.</p>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">SINGO</div>
+      <p class="footer-desc">노래하고, 공유하고, 함께 성장하다. AI 보컬 분석 플랫폼 싱고와 함께 당신의 노래 실력을 키워보세요.</p>
+      <div class="footer-social">
+        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>서비스</h4>
+      <a href="#">노래 기능</a>
+      <a href="#">AI 분석</a>
+      <a href="#">리그 시스템</a>
+      <a href="#">커뮤니티</a>
+      <a href="#">보컬 트레이너</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>회사</h4>
+      <a href="#">소개</a>
+      <a href="#">채용</a>
+      <a href="#">블로그</a>
+      <a href="#">투자자</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>지원</h4>
+      <a href="#">FAQ</a>
+      <a href="#">고객센터</a>
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>© 2024 SINGO Inc. All rights reserved.</div>
+    <div style="display:flex; align-items:center; gap:0.5rem;">
+      <span style="background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-weight:700;">SINGO</span>
+      — Made with ❤️ in Seoul
+    </div>
+  </div>
 </footer>
 
+<script>
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() { mobileMenu.classList.remove('open'); }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Feature filter tabs
+  function filterFeatures(cat) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.feature-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+        card.style.opacity = '1';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Wave bars animation stagger
+  document.querySelectorAll('.wave-bar').forEach((bar, i) => {
+    bar.style.animationDelay = (i * 0.1) + 's';
+  });
+
+  // Nav background on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 50) {
+      nav.style.background = 'rgba(8,6,15,0.95)';
+    } else {
+      nav.style.background = 'rgba(8,6,15,0.7)';
+    }
+  });
+
+  // Counter animation for stats
+  function animateCounter(el, target, suffix) {
+    let start = 0;
+    const duration = 2000;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * target);
+      el.textContent = current.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = entry.target.querySelectorAll('.stat-num');
+        nums[0] && animateCounter(nums[0], 50, '만+');
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsEl = document.querySelector('.stats-grid');
+  if (statsEl) statsObserver.observe(statsEl);
+</script>
 </body>
 </html>
