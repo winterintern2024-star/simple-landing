@@ -392,6 +392,7 @@
 
   /* ── PROBLEM ── */
   #problem { background: var(--bg2); }
+  #report { background: var(--bg); }
 
   .problem-grid {
     display: grid;
@@ -692,6 +693,113 @@
     grid-template-columns: 1fr 1.2fr;
     gap: 5rem;
     align-items: center;
+  }
+
+  /* AI Voice Mockup */
+  .ai-voice-mockup {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .ai-phone {
+    width: 260px;
+    background: #0f0c1a;
+    border-radius: 36px;
+    border: 1.5px solid rgba(168,85,247,0.25);
+    padding: 16px 14px 20px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(124,58,237,0.25), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .ai-phone-notch {
+    width: 64px; height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    margin: 0 auto 16px;
+  }
+
+  .ai-phone-screen {
+    background: #0d0a18;
+    border-radius: 22px;
+    padding: 1.1rem 1rem;
+    min-height: 380px;
+  }
+
+  .ai-char-avatar {
+    width: 72px; height: 72px;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-char-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(168,85,247,0.35);
+    animation: aiRingPulse 2s ease-in-out infinite;
+  }
+
+  .ai-char-ring2 {
+    inset: -8px;
+    border-color: rgba(236,72,153,0.2);
+    animation-delay: 0.5s;
+  }
+
+  @keyframes aiRingPulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+
+  .ai-char-face {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, #7C3AED, #EC4899);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 20px rgba(168,85,247,0.5);
+  }
+
+  .ai-waveform {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 28px;
+    margin: 0.3rem 0;
+  }
+
+  .ai-waveform span {
+    display: block;
+    width: 3px;
+    background: var(--grad);
+    border-radius: 4px;
+    animation: aiWave 1.2s ease-in-out infinite;
+  }
+
+  .ai-waveform span:nth-child(1)  { height: 8px;  animation-delay: 0s; }
+  .ai-waveform span:nth-child(2)  { height: 16px; animation-delay: 0.1s; }
+  .ai-waveform span:nth-child(3)  { height: 22px; animation-delay: 0.2s; }
+  .ai-waveform span:nth-child(4)  { height: 14px; animation-delay: 0.3s; }
+  .ai-waveform span:nth-child(5)  { height: 24px; animation-delay: 0.4s; }
+  .ai-waveform span:nth-child(6)  { height: 18px; animation-delay: 0.5s; }
+  .ai-waveform span:nth-child(7)  { height: 26px; animation-delay: 0.4s; }
+  .ai-waveform span:nth-child(8)  { height: 14px; animation-delay: 0.3s; }
+  .ai-waveform span:nth-child(9)  { height: 20px; animation-delay: 0.2s; }
+  .ai-waveform span:nth-child(10) { height: 12px; animation-delay: 0.1s; }
+  .ai-waveform span:nth-child(11) { height: 18px; animation-delay: 0.05s; }
+  .ai-waveform span:nth-child(12) { height: 8px;  animation-delay: 0s; }
+
+  @keyframes aiWave {
+    0%, 100% { transform: scaleY(0.5); opacity: 0.6; }
+    50% { transform: scaleY(1); opacity: 1; }
   }
 
   .feed-mockup {
@@ -1297,11 +1405,258 @@
   </div>
 </section>
 
+<!-- REPORT -->
+<section id="report">
+  <div class="container">
+    <div class="community-inner" style="grid-template-columns:1.2fr 1fr;">
+
+      <!-- Text (left) -->
+      <div class="reveal-left">
+        <div class="section-label"><i class="fa-solid fa-chart-line"></i> 보컬 리포트</div>
+        <h2 class="section-title">노래할수록<br><span class="grad-text">실력이 보입니다</span></h2>
+        <p class="section-desc" style="margin-bottom:2rem;">매 녹음마다 AI가 상세 분석 리포트를 생성합니다. 음정·박자·음색을 수치로 확인하고 성장 흐름을 한눈에 파악하세요.</p>
+
+        <div class="community-features">
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <div>
+              <h4>AI 보컬 3대 지표 분석</h4>
+              <p>음정 정확도, 박자 일치율, 음색 풍부도를 각각 수치로 측정해 어느 부분이 약한지 정확히 알려줍니다.</p>
+            </div>
+          </div>
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
+            <div>
+              <h4>성장 히스토리 & 트렌드</h4>
+              <p>지난 기록과 비교해 실력이 얼마나 늘었는지 그래프로 확인할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="comm-item">
+            <div class="comm-icon-wrap"><i class="fa-solid fa-music"></i></div>
+            <div>
+              <h4>곡별·구간별 상세 피드백</h4>
+              <p>어느 소절에서 음이 흔들렸는지, 어떤 구간의 박자가 어긋났는지 타임라인으로 확인합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Report Phone Mockup (right) -->
+      <div class="reveal-right" style="display:flex;justify-content:center;">
+        <div class="ai-voice-mockup">
+          <div class="ai-phone">
+            <div class="ai-phone-notch"></div>
+            <div class="ai-phone-screen">
+
+              <!-- Header -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+                <div style="font-size:0.75rem;font-weight:700;color:var(--text);">보컬 분석 리포트</div>
+                <div style="font-size:0.62rem;color:#10B981;background:rgba(16,185,129,0.1);padding:0.2rem 0.55rem;border-radius:20px;font-weight:600;">97점</div>
+              </div>
+
+              <!-- 곡 정보 -->
+              <div style="display:flex;align-items:center;gap:0.6rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:0.6rem 0.75rem;margin-bottom:0.9rem;">
+                <div style="width:36px;height:36px;background:linear-gradient(135deg,#7C3AED,#EC4899);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">🎵</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:0.68rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">밤편지 — IU</div>
+                  <div style="font-size:0.58rem;color:var(--text3);margin-top:0.1rem;">2025.06.12 · 3분 42초</div>
+                </div>
+              </div>
+
+              <!-- 3대 지표 -->
+              <div style="margin-bottom:0.9rem;">
+                <div style="font-size:0.62rem;color:var(--text3);margin-bottom:0.55rem;font-weight:500;">AI 보컬 분석</div>
+
+                <!-- 음정 -->
+                <div style="margin-bottom:0.55rem;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.25rem;">
+                    <div style="font-size:0.63rem;color:var(--text2);display:flex;align-items:center;gap:0.3rem;">
+                      <i class="fa-solid fa-music" style="font-size:0.55rem;color:#A855F7;"></i> 음정 정확도
+                    </div>
+                    <div style="font-size:0.65rem;font-weight:700;color:#A855F7;">94%</div>
+                  </div>
+                  <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+                    <div style="width:94%;height:100%;background:linear-gradient(90deg,#7C3AED,#A855F7);border-radius:4px;"></div>
+                  </div>
+                </div>
+
+                <!-- 박자 -->
+                <div style="margin-bottom:0.55rem;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.25rem;">
+                    <div style="font-size:0.63rem;color:var(--text2);display:flex;align-items:center;gap:0.3rem;">
+                      <i class="fa-solid fa-drum" style="font-size:0.55rem;color:#EC4899;"></i> 박자 일치율
+                    </div>
+                    <div style="font-size:0.65rem;font-weight:700;color:#EC4899;">98%</div>
+                  </div>
+                  <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+                    <div style="width:98%;height:100%;background:linear-gradient(90deg,#EC4899,#F472B6);border-radius:4px;"></div>
+                  </div>
+                </div>
+
+                <!-- 음색 -->
+                <div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.25rem;">
+                    <div style="font-size:0.63rem;color:var(--text2);display:flex;align-items:center;gap:0.3rem;">
+                      <i class="fa-solid fa-waveform" style="font-size:0.55rem;color:#06B6D4;"></i> 음색 풍부도
+                    </div>
+                    <div style="font-size:0.65rem;font-weight:700;color:#06B6D4;">88%</div>
+                  </div>
+                  <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+                    <div style="width:88%;height:100%;background:linear-gradient(90deg,#06B6D4,#38BDF8);border-radius:4px;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 성장 그래프 미니 -->
+              <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:0.65rem 0.75rem;margin-bottom:0.8rem;">
+                <div style="font-size:0.62rem;color:var(--text3);margin-bottom:0.5rem;font-weight:500;">최근 5회 점수 추이</div>
+                <div style="display:flex;align-items:flex-end;gap:5px;height:36px;">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+                    <div style="width:100%;background:rgba(168,85,247,0.3);border-radius:3px 3px 0 0;" class="report-bar" style="height:18px;"></div>
+                    <div style="font-size:0.5rem;color:var(--text3);">82</div>
+                  </div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+                    <div style="width:100%;height:22px;background:rgba(168,85,247,0.4);border-radius:3px 3px 0 0;"></div>
+                    <div style="font-size:0.5rem;color:var(--text3);">88</div>
+                  </div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+                    <div style="width:100%;height:26px;background:rgba(168,85,247,0.55);border-radius:3px 3px 0 0;"></div>
+                    <div style="font-size:0.5rem;color:var(--text3);">91</div>
+                  </div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+                    <div style="width:100%;height:28px;background:rgba(168,85,247,0.7);border-radius:3px 3px 0 0;"></div>
+                    <div style="font-size:0.5rem;color:var(--text3);">94</div>
+                  </div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+                    <div style="width:100%;height:36px;background:linear-gradient(180deg,#A855F7,#7C3AED);border-radius:3px 3px 0 0;box-shadow:0 0 8px rgba(168,85,247,0.5);"></div>
+                    <div style="font-size:0.5rem;color:var(--accent);font-weight:700;">97</div>
+                  </div>
+                </div>
+                <div style="margin-top:0.4rem;font-size:0.58rem;color:#10B981;display:flex;align-items:center;gap:0.25rem;">
+                  <i class="fa-solid fa-arrow-trend-up"></i> 지난 녹음 대비 +3점 향상
+                </div>
+              </div>
+
+              <!-- AI 피드백 한마디 -->
+              <div style="background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(236,72,153,0.08));border:1px solid rgba(168,85,247,0.2);border-radius:10px;padding:0.65rem 0.75rem;">
+                <div style="font-size:0.58rem;color:var(--accent);font-weight:600;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.3rem;">
+                  <i class="fa-solid fa-robot"></i> AI 피드백
+                </div>
+                <div style="font-size:0.62rem;color:var(--text2);line-height:1.6;">2절 브릿지 구간의 고음 전환이 매우 자연스러워졌어요. 음색 표현을 더 살리면 완벽할 것 같아요! 🎤</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- COMMUNITY -->
 <section id="community">
   <div class="container">
     <div class="community-inner">
 
+      <!-- AI Character Voice Mockup -->
+      <div class="reveal-left" style="display:flex;justify-content:center;">
+        <div class="ai-voice-mockup">
+          <div class="ai-phone">
+            <div class="ai-phone-notch"></div>
+            <div class="ai-phone-screen">
+
+              <!-- Header -->
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;">
+                <div style="font-size:0.75rem;font-weight:700;color:var(--text);">AI 캐릭터 영상 만들기</div>
+                <div style="font-size:0.62rem;color:var(--accent);background:rgba(124,58,237,0.18);padding:0.2rem 0.55rem;border-radius:20px;font-weight:600;letter-spacing:0.02em;">BETA</div>
+              </div>
+
+              <!-- Step 1: 녹음 완료 -->
+              <div style="background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.22);border-radius:12px;padding:0.7rem 0.85rem;margin-bottom:0.7rem;">
+                <div style="display:flex;align-items:center;gap:0.6rem;">
+                  <div style="width:22px;height:22px;background:linear-gradient(135deg,#10B981,#059669);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 10px rgba(16,185,129,0.3);">
+                    <i class="fa-solid fa-check" style="font-size:0.55rem;color:#fff;"></i>
+                  </div>
+                  <div style="flex:1;min-width:0;">
+                    <div style="font-size:0.67rem;font-weight:700;color:#10B981;">STEP 1 · 녹음 완료</div>
+                    <div style="font-size:0.62rem;color:var(--text3);margin-top:0.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">밤편지 — IU &nbsp;·&nbsp; <span style="color:#10B981;font-weight:600;">97점</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 2: 캐릭터 선택 -->
+              <div style="background:rgba(124,58,237,0.07);border:1px solid rgba(168,85,247,0.25);border-radius:12px;padding:0.7rem 0.85rem;margin-bottom:0.7rem;">
+                <div style="font-size:0.64rem;color:var(--text3);margin-bottom:0.6rem;font-weight:500;">STEP 2 · 내 AI 캐릭터 선택</div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem;">
+                  <!-- 루나 (선택됨) -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;">
+                    <div class="ai-char-face" style="width:42px;height:42px;font-size:1.15rem;box-shadow:0 0 0 2.5px #A855F7,0 0 14px rgba(168,85,247,0.45);">🐰</div>
+                    <div style="font-size:0.58rem;color:var(--accent);font-weight:600;">루나</div>
+                  </div>
+                  <!-- 레오 -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;opacity:0.5;">
+                    <div class="ai-char-face" style="width:42px;height:42px;font-size:1.15rem;background:linear-gradient(135deg,#06B6D4,#3B82F6);">🦊</div>
+                    <div style="font-size:0.58rem;color:var(--text3);">레오</div>
+                  </div>
+                  <!-- 솔 -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;opacity:0.5;">
+                    <div class="ai-char-face" style="width:42px;height:42px;font-size:1.15rem;background:linear-gradient(135deg,#F59E0B,#EF4444);">🐻</div>
+                    <div style="font-size:0.58rem;color:var(--text3);">솔</div>
+                  </div>
+                  <!-- 추가 -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:0.3rem;">
+                    <div style="width:42px;height:42px;border:1.5px dashed rgba(168,85,247,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(124,58,237,0.06);">
+                      <i class="fa-solid fa-plus" style="font-size:0.75rem;color:rgba(168,85,247,0.6);"></i>
+                    </div>
+                    <div style="font-size:0.58rem;color:var(--text3);">추가</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 3: 영상 미리보기 -->
+              <div style="border:1px solid rgba(168,85,247,0.2);border-radius:12px;overflow:hidden;margin-bottom:0.75rem;">
+                <div style="position:relative;height:110px;background:linear-gradient(160deg,#1c0e35 0%,#0d0619 60%,#160824 100%);display:flex;align-items:center;justify-content:center;">
+                  <!-- 배경 파티클 -->
+                  <div style="position:absolute;width:80px;height:80px;background:radial-gradient(circle,rgba(168,85,247,0.25) 0%,transparent 70%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+                  <div style="position:absolute;width:40px;height:40px;background:radial-gradient(circle,rgba(236,72,153,0.15) 0%,transparent 70%);border-radius:50%;top:20%;left:20%;"></div>
+                  <!-- 캐릭터 + 립싱크 -->
+                  <div style="position:relative;z-index:1;text-align:center;">
+                    <div class="ai-char-face" style="width:52px;height:52px;font-size:1.5rem;margin:0 auto;box-shadow:0 0 24px rgba(168,85,247,0.4);">🐰</div>
+                    <div class="ai-waveform" style="height:16px;margin-top:6px;gap:2.5px;">
+                      <span style="height:5px;"></span><span style="height:10px;"></span><span style="height:14px;"></span><span style="height:8px;"></span><span style="height:16px;"></span><span style="height:10px;"></span><span style="height:13px;"></span><span style="height:6px;"></span>
+                    </div>
+                  </div>
+                  <!-- 뱃지들 -->
+                  <div style="position:absolute;top:8px;left:8px;display:flex;align-items:center;gap:4px;background:rgba(0,0,0,0.45);border-radius:20px;padding:0.2rem 0.45rem;backdrop-filter:blur(4px);">
+                    <div style="width:5px;height:5px;background:#EF4444;border-radius:50%;animation:aiRingPulse 1s ease-in-out infinite;"></div>
+                    <span style="font-size:0.55rem;color:rgba(255,255,255,0.8);">생성 중</span>
+                  </div>
+                  <div style="position:absolute;bottom:8px;right:8px;">
+                    <i class="fa-solid fa-volume-high" style="font-size:0.65rem;color:rgba(255,255,255,0.35);"></i>
+                  </div>
+                </div>
+                <div style="padding:0.5rem 0.75rem;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.02);">
+                  <div>
+                    <div style="font-size:0.62rem;color:var(--text);font-weight:600;">루나의 밤편지</div>
+                    <div style="font-size:0.58rem;color:var(--text3);margin-top:0.1rem;">내 목소리 · AI 캐릭터 영상</div>
+                  </div>
+                  <div style="font-size:0.58rem;color:#10B981;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);padding:0.2rem 0.5rem;border-radius:20px;font-weight:600;">완료</div>
+                </div>
+              </div>
+
+              <!-- 업로드 버튼 -->
+              <button style="width:100%;padding:0.65rem;background:var(--grad);border:none;border-radius:10px;color:#fff;font-size:0.75rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:0.45rem;box-shadow:0 4px 20px rgba(124,58,237,0.35);">
+                <i class="fa-solid fa-upload"></i> 피드에 업로드
+              </button>
+              <div style="text-align:center;margin-top:0.5rem;font-size:0.6rem;color:var(--text3);display:flex;align-items:center;justify-content:center;gap:0.3rem;">
+                <i class="fa-solid fa-eye-slash"></i>얼굴 없이 나만의 콘텐츠 공유
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Text -->
       <div class="reveal-right">
